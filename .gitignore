@@ -1,0 +1,15 @@
+## General
+logs
+.logs
+.cache
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+pids
+*.pid.lock
+coverage
+build/
+*.tgz
+
+# Git-Vault password files (DO NOT COMMIT)
+.git-vault/*.pw
+/.ai/
+/old-codebase/

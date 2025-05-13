@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": "old-codebase"
+    },
+    {
+      "path": "new-codebase"
+    },
+    {
+      "path": "scripts"
+    },
+    {
+      "path": ".ai"
+    },
+    {
+      "path": ".cursor"
+    }
+    
+  ],
+  "settings": {
+    // You can add global workspace settings here if needed
+  }
+} 

@@ -1,0 +1,13 @@
+---
+description: 
+globs: old-codebase/**
+alwaysApply: false
+---
+# Rules for Files in `<project-root>/old-codebase/**/**`
+- Files in `<project-root>/old-codebas` are from an older Node CLI we're migrating to Deno 2.
+- The new codebase and code are located in `<project-root>/new-codebase/`.
+- It uses pnpm for dependency management.
+- Never run scripts directly in `<project-root>/old-codebase/package.json`, instead use the migration projects `main.sh` script (`<project-root>/main.sh`) to run commands for the old and new codebases. The available commands are documented in the script.
+- NEVER make changes to files in `old-codebase/`. It is READ ONLY, and you're only allow to add or remove dependencies and edit minor configuration in order for you to run and view it properly.
+- **CODEBASE CONTEXT**: A single xml file exists that provides a summarized snapshot of all code in this codebase can be found at `<project-root>/.ai/context/repomix-old-codebase.xml`. It is generated manually on-demand, and may be out of date. You can manually generate it by running running the command `<project-root>/main.sh build-context old-codebase`
+  - A similar file for the NEW codebase exists at `<project-root>/.ai/context/repomix-new-codebase.xml`
