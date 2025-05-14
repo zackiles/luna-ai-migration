@@ -13,3 +13,5 @@ build/
 .git-vault/*.pw
 /.ai/
 /old-codebase/
+/designs/
+.DS_Store

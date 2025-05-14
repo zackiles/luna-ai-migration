@@ -27,8 +27,8 @@
       "*.md"
     ],
     "exclude": [
-      "test/mocks/**",
-      "old-codebase/**"
+     "test/mocks/**/**",
+      "old-codebase/**/**"
     ]
   },
   "fmt": {
@@ -44,8 +44,8 @@
       "*.md"
     ],
     "exclude": [
-      "test/mocks/**",
-      "old-codebase/**"
+      "test/mocks/**/**",
+      "old-codebase/**/**"
     ]
   },
   "exports": {

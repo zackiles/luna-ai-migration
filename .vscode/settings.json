@@ -1,9 +1,8 @@
 {
   "deno.enable": true,
-  "deno.config": "./new-codebase/deno.jsonc",
-  "deno.importMap": "./new-codebase/deno.jsonc",
+  "deno.config": "deno.json",
   "deno.disablePaths": [
-    "../old-codebase/src/**/**",
+    "old-codebase/**"
   ],
   "deno.unstable": [
     "kv",
@@ -31,6 +30,12 @@
   "editor.detectIndentation": false,
   "editor.indentSize": 2,
   "editor.insertSpaces": true,
+  "workbench.editorAssociations": {
+    "*.mdc": "default",
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.disabled": "default",
+    "*.md": "vscode.markdown.preview.editor"
+  },
   "files.associations": {
     "repomix.config.json": "json5"
   },
@@ -78,5 +83,9 @@
     "unvalidated",
     "somevalue",
     "repomix"
-  ]
+  ],
+  "deno.enablePaths": [
+    "new-codebase/**/**"
+  ],
+  "deno.trace.server": "messages"
 }

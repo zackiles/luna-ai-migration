@@ -1,0 +1,7 @@
+{
+  "workspace": [ "./new-codebase"],
+  "importMap": "./new-codebase/deno.jsonc",
+  "lint": {
+    "exclude": ["./old-codebase/**/*"]
+  }
+}
