@@ -14,11 +14,12 @@ const commandRouteDefinition: CommandDefinition = {
 	},
 };
 
-function command({ args, routes }: CommandContext): void {
+function command({ args, routes, context }: CommandContext): void {
 	logger.print(`Command ${commandRouteDefinition.name} executed`, {
 		args,
 		config,
 		routes,
+		context,
 	});
 }
 

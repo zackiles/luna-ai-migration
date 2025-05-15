@@ -7,7 +7,6 @@ import cli from './cli.ts'
 import { getConfig } from './config.ts'
 import { LogLevel } from './utils/logger.ts'
 import logger from './utils/logger.ts'
-import gracefulShutdown from './utils/graceful-shutdown.ts'
 
 const config = await getConfig()
 
@@ -23,5 +22,5 @@ logger.setConfig({
 })
 
 if (import.meta.main) {
-  await gracefulShutdown.startAndWrap(cli, logger)
+  await cli()
 }

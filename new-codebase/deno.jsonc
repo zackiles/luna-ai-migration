@@ -1,15 +1,15 @@
 {
   "tasks": {
-    "dev": "deno run --watch src/main.ts",
-    "build": "deno check --all src/main.ts",
+    "dev": "DENO_ENV=development deno run -A --watch src/mod.ts",
+    "build": "deno check --all src/mod.ts",
     "format": "deno fmt",
-    "lint": "deno lint && deno check src/main.ts",
-    "check": "deno check src/main.ts"
+    "lint": "deno lint && deno check src/mod.ts",
+    "check": "deno check src/mod.ts"
   },
   "imports": {
     "@std/async": "jsr:@std/async@1",
     "@std/dotenv": "jsr:@std/dotenv@^0.225.3",
-    "@std/fmt": "jsr:@std/fmt@1",
+    "@std/fmt": "jsr:@std/fmt@^1.0.8",
     "@std/fs": "jsr:@std/fs@1",
     "@std/http": "jsr:@std/http@1",
     "@std/jsonc": "jsr:@std/jsonc@1",
@@ -25,8 +25,7 @@
       "*.md"
     ],
     "exclude": [
-     "test/mocks/**/**",
-      "old-codebase/**/**"
+     "test/mocks/**/**"
     ]
   },
   "fmt": {
@@ -43,10 +42,9 @@
     ],
     "exclude": [
       "test/mocks/**/**",
-      "old-codebase/**/**"
     ]
   },
   "exports": {
-    ".": "./src/main.ts"
+    ".": "./src/mod.ts"
   }
 }

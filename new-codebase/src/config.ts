@@ -32,7 +32,7 @@ const DEFAULT_VALUES = {
   PROJECT_DESCRIPTION: 'A new AI codebase for Deno',
   PROJECT_GITHUB_REPO: 'zackiles/new-codebase',
   PROJECT_CONFIG_FILE_NAME: 'new-codebase.json',
-  PROJECT_ENV: 'production',
+  PROJECT_ENV: Deno.env.get('DENO_ENV') || 'production',
   PROJECT_LOG_LEVEL: 'info',
   PROJECT_WORKSPACE_PATH: Deno.cwd(),
   PROJECT_DISABLED_COMMANDS: 'example', //  disabled because 'example' is the example/template command

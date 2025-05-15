@@ -6,6 +6,9 @@
  */
 import { CommandRouter, } from './utils/command-router.ts'
 import type { CommandDefinition } from './utils/command-router.ts'
+import { getConfig } from './config.ts'
+import logger from './utils/logger.ts'
+import gracefulShutdown from './utils/graceful-shutdown.ts'
 
 /**
  * Static mapping of commands
@@ -21,10 +24,18 @@ const COMMANDS: Record<string, CommandDefinition> = {
  * Main entry point for the CLI
  */
 async function run(): Promise<void> {
-  // TODO: Set any global state here to pass to commands.
+  const config = await getConfig()
+  
   const appContext = {}
-  const router : CommandRouter = new CommandRouter(COMMANDS)
-  await router.route(Deno.args, appContext)
+  const router: CommandRouter = new CommandRouter(COMMANDS)
+
+  await gracefulShutdown.startAndWrap(async () => {
+    await router.route(Deno.args, appContext)
+    
+    if (config.PROJECT_ENV === 'development') {
+      await new Promise(() => {}) // Keep alive indefinitely
+    }
+  }, logger)
 }
 
 export default run
