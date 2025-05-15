@@ -10,9 +10,9 @@ import { type Args, parseArgs, type ParseOptions } from '@std/cli'
 /**
  * Definition of a CLI command route
  */
-type CommandRouteDefinition = {
+type CommandDefinition = {
   name: string
-  command: (params: CommandRouteOptions) => Promise<void> | void
+  command: (params: CommandContext) => Promise<void> | void
   description: string
   options?: ParseOptions
 }
@@ -20,18 +20,20 @@ type CommandRouteDefinition = {
 /**
  * Arguments passed to a command's execution function
  */
-type CommandRouteOptions = {
+type CommandContext = {
   /** CLI arguments parsed by std/cli */
   args: Args
   /** Complete list of available command routes */
-  routes: CommandRouteDefinition[]
+  routes: CommandDefinition[],
+  /** Any additional context the application needs to pass to commands */
+  [key: string]: unknown
 }
 
 /**
  * Handles CLI command routing and option parsing
  */
 class CommandRouter {
-  private routes: CommandRouteDefinition[]
+  private routes: CommandDefinition[]
   private defaultCommand: string
 
   /**
@@ -40,15 +42,24 @@ class CommandRouter {
    * @param commands Object mapping command names to command definitions
    * @param defaultCommand The default command to use when no command is specified
    */
-  constructor(commands: Record<string, CommandRouteDefinition>, defaultCommand = 'help') {
+  constructor(commands: Record<string, CommandDefinition>, defaultCommand = 'help') {
     this.routes = Object.values(commands)
     this.defaultCommand = defaultCommand
   }
 
   /**
+   * Executes a command for the given parsed Deno.args
+  */
+  async route(args: string[], appContext: Record<string, unknown>): Promise<void> {
+    const route : CommandDefinition = this.getRoute(args)
+    const routeOptions: CommandContext = this.getOptions(route, appContext)
+    return await route.command(routeOptions)
+  }
+
+  /**
    * Gets all available command routes
    */
-  getRoutes(): CommandRouteDefinition[] {
+  getRoutes(): CommandDefinition[] {
     return this.routes
   }
 
@@ -58,7 +69,7 @@ class CommandRouter {
    * @param args Command line arguments
    * @returns The matching command definition or the default command
    */
-  getRoute(args: string[]): CommandRouteDefinition {
+  getRoute(args: string[]): CommandDefinition {
     // The '_' property contains positional arguments (non-flag values) from the command line
     // We pass these to getRoute to find the appropriate command definition
     const _args = parseArgs(args)._
@@ -68,16 +79,17 @@ class CommandRouter {
         (_args.length > 1 ? this.routes.find((r) => r.name === String(_args[1])) : undefined)
       if (match) return match
     }
-    return this.routes.find((r) => r.name === this.defaultCommand) as CommandRouteDefinition
+    return this.routes.find((r) => r.name === this.defaultCommand) as CommandDefinition
   }
 
   /**
    * Parses command options for a given route
    *
    * @param route The command definition
+   * @param appContext Any additional context the application needs to pass to commands
    * @returns Command options containing parsed arguments and routes
    */
-  getOptions(route: CommandRouteDefinition): CommandRouteOptions {
+  getOptions(route: CommandDefinition, appContext: Record<string, unknown>): CommandContext {
     const idx = Deno.args.findIndex((arg) => arg === route.name)
     const args = idx >= 0
       ? parseArgs(Deno.args.slice(idx + 1), route.options)
@@ -86,9 +98,10 @@ class CommandRouter {
     return {
       args,
       routes: this.routes,
+      ...appContext,
     }
   }
 }
 
-export default CommandRouter
-export type { CommandRouteDefinition, CommandRouteOptions }
+export { CommandRouter }
+export type { CommandDefinition, CommandContext }

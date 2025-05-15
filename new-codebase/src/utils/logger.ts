@@ -141,7 +141,6 @@ class Logger {
 }
 
 const logger = new Logger()
-export type { LogLevel, LoggerConfig }
-export { logger }
-
+export type { LoggerConfig }
+export { LogLevel, logger }
 export default logger

@@ -1,10 +1,10 @@
-import type { CommandRouteDefinition, CommandRouteOptions } from '../utils/command-router.ts'
+import type { CommandDefinition, CommandContext } from '../utils/command-router.ts'
 import logger from '../utils/logger.ts'
 import { getConfig } from '../config.ts'
 
 const config = await getConfig()
 
-const commandRouteDefinition: CommandRouteDefinition = {
+const commandRouteDefinition: CommandDefinition = {
 	name: 'example',
 	command: command,
 	description: 'An example command template',
@@ -14,7 +14,7 @@ const commandRouteDefinition: CommandRouteDefinition = {
 	},
 };
 
-function command({ args, routes }: CommandRouteOptions): void {
+function command({ args, routes }: CommandContext): void {
 	logger.print(`Command ${commandRouteDefinition.name} executed`, {
 		args,
 		config,
