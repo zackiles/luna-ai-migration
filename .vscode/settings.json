@@ -1,8 +1,9 @@
 {
   "deno.enable": true,
-  "deno.config": "deno.json",
+  "deno.config": "./deno.jsonc",
+  "deno.lint": true,
   "deno.disablePaths": [
-    "old-codebase/**"
+    "./old-codebase/**"
   ],
   "deno.unstable": [
     "kv",
@@ -84,8 +85,6 @@
     "somevalue",
     "repomix"
   ],
-  "deno.enablePaths": [
-    "new-codebase/**/**"
-  ],
+
   "deno.trace.server": "messages"
 }

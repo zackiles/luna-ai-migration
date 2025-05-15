@@ -2,6 +2,8 @@
   "workspace": [ "./new-codebase"],
   "importMap": "./new-codebase/deno.jsonc",
   "lint": {
-    "exclude": ["./old-codebase/**/*"]
-  }
+    "exclude": ["./old-codebase/**/**"]
+  },
+  "lock": true,
+  "nodeModulesDir": "auto"
 }
