@@ -11,5 +11,7 @@ alwaysApply: false
 - `Ink `: Never use `Ink` in the new codebase.
 - `Node APIs`: Never use Node APIs in the new codebase, prefer native Deno 2 APIs or JSR libraries such as the `@std/` family of utilities.
 - Follow all coding standards when writing code in `new-codebase/`, and ignore standards in `old-codebase/` that conflict with the current standards of the new code. Your job is to rewrite, refactor, and ehnace the old code, shape it to work in the new codebase. You are NOW to directly copy and paste old code into the new code unless specifically asked to in a plan or backlog items.
-- **CODEBASE CONTEXT**: A single xml file exists that provides a summarized snapshot of all code in this codebase can be found at `<project-root>/.ai/context/repomix-new-codebase.xml`. It is generated manually on-demand, and may be out of date. You can manually generate it by running running the command `<project-root>/main.sh build-context new-codebase`.
+- **CODEBASE CONTEXT**: There is a snapshot of the endtire codebase in a single file at `<project-root>/.ai/context/repomix-new-codebase.xml`
+  - It is generated manually on-demand, and may be out of date.
+  - You can manually generate it by running running the command `<project-root>/main.sh build-context new-codebase`.
   - A similar file for the OLD codebase exists at `<project-root>/.ai/context/repomix-old-codebase.xml`

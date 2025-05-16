@@ -1,9 +1,11 @@
 {
-  "deno.enable": true,
-  "deno.config": "./deno.jsonc",
-  "deno.lint": true,
+  "deno.config": "./deno.json",
+  "deno.lint": false,
+  "deno.enablePaths": [
+    "./new-codebase"
+  ],
   "deno.disablePaths": [
-    "./old-codebase/**"
+    "./old-codebase"
   ],
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
@@ -73,5 +75,6 @@
     "repomix"
   ],
 
-  "deno.trace.server": "messages"
+  "deno.trace.server": "messages",
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false
 }

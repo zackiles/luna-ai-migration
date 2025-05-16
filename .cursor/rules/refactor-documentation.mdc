@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Refactoring and Editing Markdown
+A large markdown file is shown along with changes to be made to that markdown file in the users message. Carefully find and refactor all mentions or related references to the things being changed to ensure the changes are reflected properly across the entierty of the document. This is a technical design document and so certain things you change may have side effects. If there are side-effects, propose  a list of follow-up modifications for the users consideration once you've completed their original request.

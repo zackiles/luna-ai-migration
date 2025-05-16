@@ -6,7 +6,7 @@ alwaysApply: true
 # Keep Your Context Up To Date
 After completing a user's request that involved a large change to the code you should automatically update the Repomix file for them using the following steps:
 
-- Run the script `<project-root>/.ai/build-context.ts`
+- Run the script `<project-root>/.ai/build-context.sh`
 - If the script is succesful, it will generate a new Repomix file at <project-root>/.ai/context/codebase-summary.xml`
 - If `codebase-summary.xml` is in your context window, then reread it and load the new file that was generated from the `build-context.sh` script
 

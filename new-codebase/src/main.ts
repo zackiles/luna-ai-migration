@@ -1,7 +1,7 @@
 /**
- * @module mod
+ * @module main
  *
- * Main entry point for the package.
+ * Main entry point.
  */
 import cli from './cli.ts'
 import { getConfig } from './config.ts'
@@ -11,14 +11,14 @@ import logger from './utils/logger.ts'
 const config = await getConfig()
 
 logger.setConfig({
-  name: config.PROJECT_NAME,
+  name: config.APP_NAME,
   level: {
     'development': LogLevel.DEBUG,
     'test': LogLevel.WARN,
-    'production': LogLevel.INFO
-  }[config.PROJECT_ENV] ?? LogLevel.INFO,
+    'production': LogLevel.INFO,
+  }[config.APP_ENV] ?? LogLevel.INFO,
   colors: true,
-  timestamp: config.PROJECT_ENV !== 'production'
+  timestamp: config.APP_ENV !== 'production',
 })
 
 if (import.meta.main) {

@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# TASK
+Implement the full and complete list of proposed changes in fixes.md to the other file provided to you. To do so, you must make your changes step by step. The file you'll be modifying is a very large file where surgical edits must be made using your best tools. Make all changes with extreme accuracy as to not introduce a breaking change to the current design. Be thurough, and think deeply about the changes being asked, as the proposals have the potential to be approximate solutions not exact solutions. Use your objective reasoning on what the appropriate code to add or change is based of your deep understanding of the files contents.

@@ -1,8 +1,6 @@
 {
-  "workspace": [ "./new-codebase"],
-  "lint": {
-    "exclude": ["./old-codebase/**/**"]
-  },
+  "workspace": ["./new-codebase/**/**"],
+  "exclude": ["./old-codebase/**/**"],
   "unstable": [
     "kv",
     "net",

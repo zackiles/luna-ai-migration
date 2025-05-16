@@ -1,0 +1,7 @@
+---
+description: When using Vercel AI SDK
+globs: 
+alwaysApply: false
+---
+# Using Vercel AI SDK In This Codebase
+- You have up to date documentation available to you for all core methods in the Vercel AI SDK. If you're getting lint warnings or errors, or experiencing strange bugs, or doing a large refactor of code related to this SDK, then ensure the user has provided you their docs, and if not, ask them to provide it to you so you can review them continue your work properly.

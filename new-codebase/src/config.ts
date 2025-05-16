@@ -15,7 +15,7 @@ import { parseArgs } from '@std/cli'
 import { dirname } from '@std/path'
 import { findPackagePathFromPath } from './utils/package-info.ts'
 
-const CONFIG_SUFFIX = 'PROJECT_'
+const CONFIG_SUFFIX = 'APP_'
 // Singleton config instance
 let configInstance: ProjectConfig | null = null
 // Shared initialization promise to ensure one-time initialization
@@ -27,45 +27,43 @@ const projectPath = async () => dirname(await findPackagePathFromPath())
 
 // Default configuration values
 const DEFAULT_VALUES = {
-  PROJECT_NAME: 'New-Codebase',
-  PROJECT_VERSION: '0.0.1',
-  PROJECT_DESCRIPTION: 'A new AI codebase for Deno',
-  PROJECT_GITHUB_REPO: 'zackiles/new-codebase',
-  PROJECT_CONFIG_FILE_NAME: 'new-codebase.json',
-  PROJECT_ENV: Deno.env.get('DENO_ENV') || 'production',
-  PROJECT_LOG_LEVEL: 'info',
-  PROJECT_WORKSPACE_PATH: Deno.cwd(),
-  PROJECT_DISABLED_COMMANDS: 'example', //  disabled because 'example' is the example/template command
-  PROJECT_PATH: projectPath
+  APP_NAME: 'New-Codebase',
+  APP_VERSION: '0.0.1',
+  APP_DESCRIPTION: 'A new AI codebase for Deno',
+  APP_GITHUB_REPO: 'zackiles/new-codebase',
+  APP_CONFIG_FILE_NAME: 'new-codebase.json',
+  APP_ENV: Deno.env.get('DENO_ENV') || 'production',
+  APP_LOG_LEVEL: 'info',
+  APP_WORKSPACE_PATH: Deno.cwd(),
+  APP_DISABLED_COMMANDS: 'example', //  disabled because 'example' is the example/template command
+  APP_PATH: projectPath,
+
+  ANTHROPIC_API_KEY: ''
 }
 
 /**
- * @module types
- * @description Core type definitions for the deno-kit library
- */
-
-/**
- * Configuration interface representing all environment variables used in deno-kit
+ * Configuration interface representing all environment variables used in this project
  */
 interface ProjectConfig {
-  PROJECT_NAME: string
-  PROJECT_VERSION: string
+  APP_NAME: string
+  APP_VERSION: string
   /** Description of the project */
-  PROJECT_DESCRIPTION: string
+  APP_DESCRIPTION: string
   /** Current execution environment (development, production, or test) */
-  PROJECT_ENV: string
+  APP_ENV: string
   /** GitHub repository name (e.g., "zackiles/deno-kit") */
-  PROJECT_GITHUB_REPO: string
+  APP_GITHUB_REPO: string
   /** Name of the workspace config file (e.g., "kit.json") */
-  PROJECT_CONFIG_FILE_NAME: string
+  APP_CONFIG_FILE_NAME: string
   /** Path to the project's main module or CLI executable */
-  PROJECT_PATH: string
-  /** Comma-separated list of disabled commands. This is helpful when Deno-Kit is used in MCP Servers that need to limit tool calls/commands */
-  PROJECT_DISABLED_COMMANDS: string
+  APP_PATH: string
+  /** Comma-separated list of disabled commands. This is helpful when this project is used as a MCP Server that needs to limit tool calls/commands */
+  APP_DISABLED_COMMANDS: string
   /** Path to the workspace (the directory the CLI is managing for the user) directory */
-  PROJECT_WORKSPACE_PATH: string
+  APP_WORKSPACE_PATH: string
   /** Log level for controlling verbosity (DEBUG, INFO, WARN, ERROR, SILENT) */
-  PROJECT_LOG_LEVEL: string
+  APP_LOG_LEVEL: string
+  ANTHROPIC_API_KEY: ''
 }
 
 /**
@@ -80,16 +78,16 @@ function assertProjectConfig(config: unknown): config is ProjectConfig {
   }
 
   const requiredKeys: (keyof ProjectConfig)[] = [
-    'PROJECT_NAME',
-    'PROJECT_DESCRIPTION',
-    'PROJECT_VERSION',
-    'PROJECT_PATH',
-    'PROJECT_GITHUB_REPO',
-    'PROJECT_CONFIG_FILE_NAME',
-    'PROJECT_DISABLED_COMMANDS',
-    'PROJECT_ENV',
-    'PROJECT_WORKSPACE_PATH',
-    'PROJECT_LOG_LEVEL',
+    'APP_NAME',
+    'APP_DESCRIPTION',
+    'APP_VERSION',
+    'APP_PATH',
+    'APP_GITHUB_REPO',
+    'APP_CONFIG_FILE_NAME',
+    'APP_DISABLED_COMMANDS',
+    'APP_ENV',
+    'APP_WORKSPACE_PATH',
+    'APP_LOG_LEVEL',
   ]
 
   const missingKeys = requiredKeys.filter((key) =>
@@ -141,7 +139,7 @@ async function resolveAsyncValues(
 
 /**
  * Creates parse options for command line arguments based on config keys.
- * Converts internal config keys (e.g., PROJECT_WORKSPACE_PATH) to kebab-case
+ * Converts internal config keys (e.g., APP_WORKSPACE_PATH) to kebab-case
  * argument names (e.g., workspace-path) for parseArgs.
  */
 function createParseOptions(
@@ -196,7 +194,7 @@ async function initConfig(config: Partial<ProjectConfig> = {}): Promise<ProjectC
 
     for (const [parsedArgKey, value] of Object.entries(args).filter(argsFilter)) {
       // Convert parsed arg key (kebab-case, e.g., "workspace-path")
-      // back to internal config key format (PROJECT_WORKSPACE_PATH)
+      // back to internal config key format (APP_WORKSPACE_PATH)
       const snakeCaseKey = parsedArgKey.replace(/-/g, '_')
       const internalConfigKey = `${CONFIG_SUFFIX}${snakeCaseKey.toUpperCase()}`
       foundConfig[internalConfigKey] = value as string

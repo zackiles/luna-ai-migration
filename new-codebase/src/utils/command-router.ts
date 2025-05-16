@@ -24,7 +24,7 @@ type CommandContext = {
   /** CLI arguments parsed by std/cli */
   args: Args
   /** Complete list of available command routes */
-  routes: CommandDefinition[],
+  routes: CommandDefinition[]
   /** Any additional context the application needs to pass to commands */
   [key: string]: unknown
 }
@@ -49,9 +49,9 @@ class CommandRouter {
 
   /**
    * Executes a command for the given parsed Deno.args
-  */
+   */
   async route(args: string[], appContext: Record<string, unknown>): Promise<void> {
-    const route : CommandDefinition = this.getRoute(args)
+    const route: CommandDefinition = this.getRoute(args)
     const routeOptions: CommandContext = this.getOptions(route, appContext)
     return await route.command(routeOptions)
   }
@@ -104,4 +104,4 @@ class CommandRouter {
 }
 
 export { CommandRouter }
-export type { CommandDefinition, CommandContext }
+export type { CommandContext, CommandDefinition }

@@ -1,19 +1,13 @@
-#!/usr/bin/env -S deno run -A
-
 /**
  * @module cli
  * @description Main entry point for the CLI
  */
-import { CommandRouter, } from './utils/command-router.ts'
+import { CommandRouter } from './utils/command-router.ts'
 import type { CommandDefinition } from './utils/command-router.ts'
 import { getConfig } from './config.ts'
 import logger from './utils/logger.ts'
 import gracefulShutdown from './utils/graceful-shutdown.ts'
 
-/**
- * Static mapping of commands
- * We explicitly import all command modules using static imports.
- */
 const COMMANDS: Record<string, CommandDefinition> = {
   help: (await import('./commands/help.ts')).default,
   version: (await import('./commands/version.ts')).default,
@@ -25,15 +19,15 @@ const COMMANDS: Record<string, CommandDefinition> = {
  */
 async function run(): Promise<void> {
   const config = await getConfig()
-  
+
   const appContext = {}
   const router: CommandRouter = new CommandRouter(COMMANDS)
 
   await gracefulShutdown.startAndWrap(async () => {
     await router.route(Deno.args, appContext)
-    
-    if (config.PROJECT_ENV === 'development') {
-      await new Promise(() => {}) // Keep alive indefinitely
+
+    if (config.APP_ENV === 'development') {
+      await new Promise(() => {}) // Keep alive indefinitely (or until signal) to help with --watch mode
     }
   }, logger)
 }
